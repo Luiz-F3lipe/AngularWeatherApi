@@ -1,12 +1,15 @@
 <mat-toolbar color="primary">
-  <span>Aplicativo do Tempo</span>
+  <span>Aplicativo do tempo</span>
 </mat-toolbar>
 <div fxLayoutAlign="center">
-  <div class="mat-caption vertical-margin">Sua ciade, sua previsão, aqui e agora!</div>
+  <div class="mat-caption vertical-margin">Sua cidade, sua previsão, aqui e agora!</div>
+</div>
+<div fxLayoutAlign="center">
+  <app-busca-cidade></app-busca-cidade>
 </div>
 <div fxLayout="row">
   <div fxFlex></div>
-  <mat-card fxFlex="300px">
+  <mat-card fxFlex="300px" style="margin-top: 20px;">
     <mat-card-header>
       <mat-card-title>
         <div class="mat-headline">Tempo agora</div>

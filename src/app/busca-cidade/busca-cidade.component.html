@@ -1,0 +1,9 @@
+<form>
+  <mat-form-field>
+    <mat-icon matPrefix>busca</mat-icon>
+    <mat-hint style="text-align: center;"> Para buscar por pais, informe como o exemplo 'Lages, BR'</mat-hint>
+    <mat-error *ngIf="busca.invalid"> Digite mais que um character na busca</mat-error>
+    <input matInput placeholder="Digita sua cidade ou cep" arial-label="Cidade ou CEP"
+      [formControl]="busca">
+  </mat-form-field>
+</form>
