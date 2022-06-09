@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { TempoService } from '../tempo/tempo.service';
 import { debounceTime } from 'rxjs';
-
 
 @Component({
   selector: 'app-busca-cidade',
@@ -11,17 +10,15 @@ import { debounceTime } from 'rxjs';
 })
 export class BuscaCidadeComponent implements OnInit {
 
+  busca = new FormControl('', [Validators.minLength(2)])
+  eventoDeBusca = new EventEmitter<string>()
+
   constructor(private tempoService: TempoService) { }
 
-  busca = new FormControl("", [Validators.minLength(2)]);
-
   ngOnInit(): void {
-    this.busca.valueChanges.subscribe((valorDaBusca: string) => {
-      if (valorDaBusca) {
-        const valorDoInput = valorDaBusca.split(',').map(letra => letra.trim())
-        this.tempoService.getCurrentWeather(valorDoInput[0], valorDoInput.length > 1 ? valorDoInput[1] : undefined).pipe(debounceTime(1000))
-          .subscribe(data => (console.log(data)))
-      }
+    this.busca.valueChanges.pipe(debounceTime(1000)).subscribe((valorDaBusca: string) => {
+      const valorDoInput = valorDaBusca.split(',').map(letra => letra.trim())
+      this.tempoService.getCurrentWeather(valorDoInput[0], valorDoInput.length > 1 ? valorDoInput[1] : undefined).subscribe(data => this.tempoService.tempoAtual.next(data))
     })
   }
 }
